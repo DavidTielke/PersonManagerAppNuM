@@ -1,4 +1,4 @@
-﻿namespace ConsoleClient.Data;
+﻿namespace Backend.Data.FileStorage;
 
 public interface IFileStorer
 {

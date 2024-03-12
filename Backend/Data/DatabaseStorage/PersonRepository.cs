@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Backend.Data.FileStorage;
+using ConsoleClient.CrossCutting;
+using CrossCutting.DomainModel;
 
-namespace ConsoleClient.Data
+namespace Backend.Data.DatabaseStorage
 {
     public class PersonRepository : IPersonRepository
     {
@@ -11,17 +14,22 @@ namespace ConsoleClient.Data
         private IPersonParser _personParser;
         private readonly IPersonConverter _converter;
         private readonly IPersonDataValidator _validator;
+        private readonly IConfigurator _config;
 
         public PersonRepository(IFileStorer fileStorer,
             IPersonParser personParser,
-            IPersonConverter converter, 
-            IPersonDataValidator validator)
+            IPersonConverter converter,
+            IPersonDataValidator validator,
+            IConfigurator config)
         {
             _fileStorer = fileStorer;
             _personParser = personParser;
             _converter = converter;
             _validator = validator;
+            _config = config;
         }
+
+        public string PATH => _config.Get("DataPath", "data.csv");
 
         //public void Insert(Person person)
         //{
@@ -38,11 +46,11 @@ namespace ConsoleClient.Data
         //    _fileStorer.WriteAllLines("data.csv", allLines);
         //}
 
-        public List<Person> GetAllPersons()
+        public IQueryable<Person> GetAllPersons()
         {
-            var lines = _fileStorer.LoadAllLines("data.csv");
+            var lines = _fileStorer.LoadAllLines(PATH);
             var persons = _personParser.ParseFromCSV(lines);
-            return persons;
+            return persons.AsQueryable();
         }
     }
 }

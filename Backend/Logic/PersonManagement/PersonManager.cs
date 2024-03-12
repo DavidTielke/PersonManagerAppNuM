@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Text;
+using Backend.Data.DatabaseStorage;
 using ConsoleClient.CrossCutting;
-using ConsoleClient.Data;
+using CrossCutting.DomainModel;
 
-namespace ConsoleClient.Logic
+namespace Backend.Logic.PersonManagement
 {
     public class PersonManager : IPersonManager
     {
@@ -26,22 +27,25 @@ namespace ConsoleClient.Logic
         //    _personRepository.Insert(person);
         //}
 
-        public List<Person> GetAllAdults()
+        public IQueryable<Person> GetAllAdults()
         {
             var adults = _personRepository
                 .GetAllPersons()
-                .Where(p => p.Age >= AGE_TRESHOLD)
-                .ToList();
+                .Where(p => p.Age >= AGE_TRESHOLD);
             return adults;
         }
 
-        public List<Person> GetAllChildren()
+        public IQueryable<Person> GetAllChildren()
         {
             var children = _personRepository
                 .GetAllPersons()
-                .Where(p => p.Age < AGE_TRESHOLD)
-                .ToList();
+                .Where(p => p.Age < AGE_TRESHOLD);
             return children;
+        }
+
+        public IQueryable<Person> GetAll()
+        {
+            return _personRepository.GetAllPersons();
         }
     }
 }

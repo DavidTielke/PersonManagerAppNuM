@@ -1,4 +1,6 @@
-﻿namespace ConsoleClient.Data;
+﻿using CrossCutting.DomainModel;
+
+namespace Backend.Data.DatabaseStorage;
 
 public interface IPersonDataValidator
 {

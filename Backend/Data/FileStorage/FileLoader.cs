@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ConsoleClient.Data
+namespace Backend.Data.FileStorage
 {
     // T-System
     public class FileLoader : IFileStorer

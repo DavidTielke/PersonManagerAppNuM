@@ -31,20 +31,20 @@ namespace Backend.Data.DatabaseStorage
 
         public string PATH => _config.Get("DataPath", "data.csv");
 
-        //public void Insert(Person person)
-        //{
-        //    _validator.AssertForInsert(person);
+        public void Insert(Person person)
+        {
+            //_validator.AssertForInsert(person);
 
-        //    var allLines = _fileStorer.LoadAllLines("data.csv");
+            var allLines = _fileStorer.LoadAllLines(PATH);
 
-        //    var allPersons = _personParser.ParseFromCSV(allLines);
-        //    var nextIndex = allPersons.Max(p => p.Id) + 1;
-        //    person.Id = nextIndex;
+            var allPersons = _personParser.ParseFromCSV(allLines);
+            var nextIndex = allPersons.Max(p => p.Id) + 1;
+            person.Id = nextIndex;
 
-        //    var csvData = _converter.ToCsv(person);
-        //    allLines.Add(csvData);
-        //    _fileStorer.WriteAllLines("data.csv", allLines);
-        //}
+            var csvData = _converter.ToCsv(person);
+            allLines.Add(csvData);
+            _fileStorer.WriteAllLines("data.csv", allLines);
+        }
 
         public IQueryable<Person> GetAllPersons()
         {

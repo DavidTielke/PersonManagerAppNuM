@@ -22,10 +22,10 @@ namespace Backend.Logic.PersonManagement
             AGE_TRESHOLD = _config.Get("AgeTreshold", 18);
         }
 
-        //public void Add(Person person)
-        //{
-        //    _personRepository.Insert(person);
-        //}
+        public void Add(Person person)
+        {
+            _personRepository.Insert(person);
+        }
 
         public IQueryable<Person> GetAllAdults()
         {

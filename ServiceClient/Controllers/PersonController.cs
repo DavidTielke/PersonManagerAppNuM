@@ -35,5 +35,14 @@ namespace ServiceClient.Controllers
         {
             return _personManager.GetAllChildren();
         }
+
+        [HttpPost]
+        [Route("/Persons")]
+
+        public IActionResult AddPerson(Person person)
+        {
+            _personManager.Add(person);
+            return Created("", person);
+        }
     }
 }

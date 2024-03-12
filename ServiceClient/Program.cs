@@ -24,7 +24,7 @@ namespace ServiceClient
             builder.Services.AddTransient<IPersonRepository, PersonRepository>();
             builder.Services.AddTransient<IPersonConverter, PersonConverter>();
             builder.Services.AddTransient<IPersonParser, PersonParser>();
-            builder.Services.AddTransient<IFileStorer, FileLoader>();
+            builder.Services.AddTransient<IFileStorer, FileStorer>();
             builder.Services.AddTransient<IPersonDataValidator, PersonDataValidator>();
             builder.Services.AddSingleton<IConfigurator, Configurator>();
 

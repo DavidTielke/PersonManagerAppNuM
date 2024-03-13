@@ -5,6 +5,7 @@ using Backend.Data.FileStorage;
 using Backend.Logic.PersonManagement;
 using ConsoleClient.CrossCutting;
 using Microsoft.AspNetCore.OData;
+using ServiceClient.Middlewares;
 
 namespace ServiceClient
 {
@@ -30,6 +31,7 @@ namespace ServiceClient
             builder.Services.AddTransient<IPersonParser, PersonParser>();
             builder.Services.AddTransient<IFileStorer, FileStorer>();
             builder.Services.AddTransient<IPersonInsertDataValidator, PersonInsertDataValidator>();
+            builder.Services.AddTransient<IPersonAddLogicValidator, PersonAddLogicValidator>();
             builder.Services.AddSingleton<IConfigurator, Configurator>();
 
             var app = builder.Build();
@@ -49,7 +51,8 @@ namespace ServiceClient
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-            
+
+            app.UseMiddleware<ValidationExceptionMiddleware>();
 
             app.MapControllers();
 

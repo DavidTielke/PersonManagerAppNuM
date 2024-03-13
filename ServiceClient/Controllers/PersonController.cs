@@ -1,5 +1,6 @@
 using Backend.Logic.PersonManagement;
 using CrossCutting.DomainModel;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 
@@ -45,6 +46,14 @@ namespace ServiceClient.Controllers
         {
             _personManager.Add(person);
             return Created("", person);
+        }
+
+        [HttpPost]
+        [Route("/Persons/Validate")]
+        // Todo: Eigene Implementierung für ValidationResult bauen
+        public ValidationResult ValidatePerson(Person person)
+        {
+            return _personManager.ValidateForAdd(person);
         }
     }
 }

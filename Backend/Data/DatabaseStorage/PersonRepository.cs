@@ -6,6 +6,7 @@ using Backend.Data.FileStorage;
 using ConsoleClient.CrossCutting;
 using CrossCutting.DomainModel;
 using FluentValidation;
+using FluentValidation.Results;
 
 namespace Backend.Data.DatabaseStorage
 {
@@ -45,6 +46,11 @@ namespace Backend.Data.DatabaseStorage
             var csvData = _converter.ToCsv(person);
             allLines.Add(csvData);
             _fileStorer.WriteAllLines("data.csv", allLines);
+        }
+
+        public ValidationResult ValidateForInsert(Person person)
+        {
+            return _validator.Validate(person);
         }
 
         public IQueryable<Person> GetAllPersons()

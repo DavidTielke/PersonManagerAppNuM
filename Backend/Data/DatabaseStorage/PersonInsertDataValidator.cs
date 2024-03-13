@@ -7,7 +7,7 @@ public class PersonInsertDataValidator : AbstractValidator<Person>, IPersonInser
 {
     public PersonInsertDataValidator()
     {
-        RuleFor(p => p.Id).Equals(0);
+        RuleFor(p => p.Id).Equal(0);
         RuleFor(p => p.Name).NotEmpty().NotNull().MinimumLength(2).MaximumLength(255);
     }
 }

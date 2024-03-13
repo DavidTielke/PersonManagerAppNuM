@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using Backend.Data.DatabaseStorage;
+using FluentAssertions;
 
 namespace MyUnitTests.Backend.Data.DatabaseStorage
 {
@@ -14,7 +15,7 @@ namespace MyUnitTests.Backend.Data.DatabaseStorage
 
             var actual = parser.ParseFromCSV(lines);
 
-            Assert.AreEqual(1, actual.Count);
+            actual.Should().HaveCount(1);
         }
 
         [Test]

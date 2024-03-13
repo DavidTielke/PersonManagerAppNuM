@@ -1,6 +1,7 @@
 using Backend.Logic.PersonManagement;
 using CrossCutting.DomainModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace ServiceClient.Controllers
 {
@@ -16,6 +17,7 @@ namespace ServiceClient.Controllers
         }
 
         [HttpGet]
+        [EnableQuery()]
         [Route("/Persons")]
         public IQueryable<Person> GetAll()
         {
@@ -26,14 +28,14 @@ namespace ServiceClient.Controllers
         [Route("/Persons/Adults")]
         public IQueryable<Person> GetAllAdults()
         {
-            return _personManager.GetAllAdults();
+            return _personManager.GetAllAdults().OrderBy(p => p.Id);
         }
 
         [HttpGet]
         [Route("/Persons/Children")]
         public IQueryable<Person> GetAllChildren()
         {
-            return _personManager.GetAllChildren();
+            return _personManager.GetAllChildren().OrderBy(p => p.Name);
         }
 
         [HttpPost]

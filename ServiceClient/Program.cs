@@ -4,6 +4,7 @@ using Backend.Data.DatabaseStorage;
 using Backend.Data.FileStorage;
 using Backend.Logic.PersonManagement;
 using ConsoleClient.CrossCutting;
+using Microsoft.AspNetCore.OData;
 
 namespace ServiceClient
 {
@@ -15,8 +16,11 @@ namespace ServiceClient
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddControllers().AddOData(o =>
+            {
+                o.Select().Filter().SetMaxTop(2).OrderBy().Count();
+            });
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -45,7 +49,7 @@ namespace ServiceClient
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
+            
 
             app.MapControllers();
 

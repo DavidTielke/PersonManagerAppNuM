@@ -18,7 +18,7 @@ namespace ConsoleClient
             services.AddTransient<IPersonConverter, PersonConverter>();
             services.AddTransient<IPersonParser, PersonParser>();
             services.AddTransient<IFileStorer, FileStorer>(); // Überprüfe, ob FileStorer wirklich IFileStorer implementiert
-            services.AddTransient<IPersonDataValidator, PersonDataValidator>();
+            services.AddTransient<IPersonInsertDataValidator, PersonInsertDataValidator>();
             services.AddSingleton<IConfigurator, Configurator>();
 
             var kernel = services.BuildServiceProvider();

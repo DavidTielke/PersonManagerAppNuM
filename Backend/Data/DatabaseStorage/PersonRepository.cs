@@ -5,6 +5,7 @@ using System.Text;
 using Backend.Data.FileStorage;
 using ConsoleClient.CrossCutting;
 using CrossCutting.DomainModel;
+using FluentValidation;
 
 namespace Backend.Data.DatabaseStorage
 {
@@ -13,13 +14,13 @@ namespace Backend.Data.DatabaseStorage
         private IFileStorer _fileStorer;
         private IPersonParser _personParser;
         private readonly IPersonConverter _converter;
-        private readonly IPersonDataValidator _validator;
+        private readonly IPersonInsertDataValidator _validator;
         private readonly IConfigurator _config;
 
         public PersonRepository(IFileStorer fileStorer,
             IPersonParser personParser,
             IPersonConverter converter,
-            IPersonDataValidator validator,
+            IPersonInsertDataValidator validator,
             IConfigurator config)
         {
             _fileStorer = fileStorer;
@@ -33,7 +34,7 @@ namespace Backend.Data.DatabaseStorage
 
         public void Insert(Person person)
         {
-            //_validator.AssertForInsert(person);
+            _validator.ValidateAndThrow(person);
 
             var allLines = _fileStorer.LoadAllLines(PATH);
 

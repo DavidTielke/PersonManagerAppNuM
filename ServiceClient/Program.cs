@@ -3,8 +3,11 @@ using System.ComponentModel;
 using Backend.Data.DatabaseStorage;
 using Backend.Data.FileStorage;
 using Backend.Logic.PersonManagement;
+using Castle.DynamicProxy;
 using ConsoleClient.CrossCutting;
+using CrossCutting.Interceptors;
 using Microsoft.AspNetCore.OData;
+using ServiceClient.Extensions;
 using ServiceClient.Middlewares;
 
 namespace ServiceClient
@@ -21,17 +24,20 @@ namespace ServiceClient
             {
                 o.Select().Filter().SetMaxTop(2).OrderBy().Count();
             });
-
+            
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddTransient<IPersonManager, PersonManager>();
-            builder.Services.AddTransient<IPersonRepository, PersonRepository>();
-            builder.Services.AddTransient<IPersonConverter, PersonConverter>();
-            builder.Services.AddTransient<IPersonParser, PersonParser>();
-            builder.Services.AddTransient<IFileStorer, FileStorer>();
-            builder.Services.AddTransient<IPersonInsertDataValidator, PersonInsertDataValidator>();
-            builder.Services.AddTransient<IPersonAddLogicValidator, PersonAddLogicValidator>();
+            builder.Services.AddSingleton<ProxyGenerator>();
+            builder.Services.AddSingleton<IInterceptor, LoggingInterceptor>();
+
+            builder.Services.AddProxiedTransient<IPersonManager, PersonManager>();
+            builder.Services.AddProxiedTransient<IPersonRepository, PersonRepository>();
+            builder.Services.AddProxiedTransient<IPersonConverter, PersonConverter>();
+            builder.Services.AddProxiedTransient<IPersonParser, PersonParser>();
+            builder.Services.AddProxiedTransient<IFileStorer, FileStorer>();
+            builder.Services.AddProxiedTransient<IPersonInsertDataValidator, PersonInsertDataValidator>();
+            builder.Services.AddProxiedTransient<IPersonAddLogicValidator, PersonAddLogicValidator>();
             builder.Services.AddSingleton<IConfigurator, Configurator>();
 
             var app = builder.Build();

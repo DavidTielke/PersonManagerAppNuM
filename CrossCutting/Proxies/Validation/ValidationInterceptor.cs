@@ -8,7 +8,7 @@ using FluentValidation;
 
 namespace CrossCutting.Proxies.Validation
 {
-    public class ValidationInterceptor : AbstractInterceptor
+    public class ValidationInterceptor : BaseInterceptor
     {
         private readonly IServiceProvider _serviceProvider;
 

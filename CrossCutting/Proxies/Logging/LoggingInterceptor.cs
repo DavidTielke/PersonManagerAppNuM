@@ -7,7 +7,7 @@ using Castle.DynamicProxy;
 
 namespace CrossCutting.Proxies.Logging
 {
-    public class LoggingInterceptor : AbstractInterceptor
+    public class LoggingInterceptor : BaseInterceptor
     {
         public override void Intercept(IInvocation invocation)
         {

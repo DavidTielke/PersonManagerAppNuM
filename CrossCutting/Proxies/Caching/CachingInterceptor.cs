@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CrossCutting.Proxies.Caching
 {
-    public class CachingInterceptor : AbstractInterceptor
+    public class CachingInterceptor : BaseInterceptor
     {
         //private readonly ICache _cache;
 

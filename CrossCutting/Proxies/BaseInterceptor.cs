@@ -3,7 +3,7 @@ using Castle.DynamicProxy;
 
 namespace CrossCutting.Proxies;
 
-public abstract class AbstractInterceptor : IInterceptor
+public abstract class BaseInterceptor : IInterceptor
 {
     public Attribute GetAttributeOrDefault(Type attributeType, IInvocation invocation)
     {

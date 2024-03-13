@@ -5,7 +5,7 @@ using Backend.Data.FileStorage;
 using Backend.Logic.PersonManagement;
 using Castle.DynamicProxy;
 using ConsoleClient.CrossCutting;
-using CrossCutting.Proxies;
+using CrossCutting.Proxies.Logging;
 using Microsoft.AspNetCore.OData;
 using ServiceClient.Extensions;
 using ServiceClient.Middlewares;

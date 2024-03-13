@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Castle.DynamicProxy;
-using CrossCutting.Proxies.Logging;
 
-namespace CrossCutting.Proxies
+namespace CrossCutting.Proxies.Logging
 {
     public class LoggingInterceptor : AbstractInterceptor
     {

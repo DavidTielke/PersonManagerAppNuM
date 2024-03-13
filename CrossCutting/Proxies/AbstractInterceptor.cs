@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Castle.DynamicProxy;
 
-namespace CrossCutting.Proxies.Logging;
+namespace CrossCutting.Proxies;
 
 public abstract class AbstractInterceptor : IInterceptor
 {

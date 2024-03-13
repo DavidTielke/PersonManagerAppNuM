@@ -6,6 +6,7 @@ using System.Text;
 using Backend.Data.DatabaseStorage;
 using ConsoleClient.CrossCutting;
 using CrossCutting.DomainModel;
+using CrossCutting.Proxies.Logging;
 using FluentValidation.Results;
 
 namespace Backend.Logic.PersonManagement

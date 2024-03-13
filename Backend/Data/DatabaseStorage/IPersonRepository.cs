@@ -1,8 +1,11 @@
-﻿using CrossCutting.DomainModel;
+﻿using System.Reflection;
+using CrossCutting.DomainModel;
+using CrossCutting.Proxies.Logging;
 using FluentValidation.Results;
 
-namespace Backend.Data.DatabaseStorage;
+[assembly:LogWorkflow]
 
+namespace Backend.Data.DatabaseStorage;
 public interface IPersonRepository
 {
     IQueryable<Person> GetAllPersons();

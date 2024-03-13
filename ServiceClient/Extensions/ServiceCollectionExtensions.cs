@@ -14,8 +14,8 @@ namespace ServiceClient.Extensions
             {
                 var proxyGenerator = sp.GetRequiredService<ProxyGenerator>();
                 var target = sp.GetRequiredService<TImplementation>();
-                var inceptor = sp.GetServices<IInterceptor>().ToArray();
-                var proxy = (TContract)proxyGenerator.CreateInterfaceProxyWithTarget(typeof(TContract), target, inceptor);
+                var interceptors = sp.GetServices<IInterceptor>().ToArray();
+                var proxy = (TContract)proxyGenerator.CreateInterfaceProxyWithTarget(typeof(TContract), target, interceptors);
                 return proxy;
             });
 

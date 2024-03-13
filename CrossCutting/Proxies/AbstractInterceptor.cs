@@ -5,19 +5,24 @@ namespace CrossCutting.Proxies;
 
 public abstract class AbstractInterceptor : IInterceptor
 {
-    public TAttribute GetAttributeOrDefault<TAttribute>(IInvocation invocation)
-        where TAttribute : Attribute
+    public Attribute GetAttributeOrDefault(Type attributeType, IInvocation invocation)
     {
-        var attribute = invocation.Method.GetCustomAttribute<TAttribute>();
+        var attribute = invocation.Method.GetCustomAttribute(attributeType);
         if (attribute != null) return attribute;
 
-        attribute = invocation.Method.DeclaringType.GetCustomAttribute<TAttribute>();
+        attribute = invocation.Method.DeclaringType.GetCustomAttribute(attributeType);
         if (attribute != null) return attribute;
 
-        attribute = invocation.Method.DeclaringType.Assembly.GetCustomAttribute<TAttribute>();
+        attribute = invocation.Method.DeclaringType.Assembly.GetCustomAttribute(attributeType);
         if (attribute != null) return attribute;
 
         return null;
+    }
+
+    public TAttribute GetAttributeOrDefault<TAttribute>(IInvocation invocation)
+        where TAttribute : Attribute
+    {
+        return (TAttribute)GetAttributeOrDefault(typeof(TAttribute), invocation);
     }
 
     public abstract void Intercept(IInvocation invocation);

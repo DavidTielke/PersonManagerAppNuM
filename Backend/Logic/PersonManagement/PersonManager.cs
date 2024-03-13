@@ -7,6 +7,7 @@ using Backend.Data.DatabaseStorage;
 using ConsoleClient.CrossCutting;
 using CrossCutting.DomainModel;
 using CrossCutting.Proxies.Logging;
+using FluentValidation;
 using FluentValidation.Results;
 
 namespace Backend.Logic.PersonManagement
@@ -32,14 +33,13 @@ namespace Backend.Logic.PersonManagement
         {
             try
             {
-                Console.WriteLine("+++ ENTER Add(Person person) +++");
+                _validator.ValidateAndThrow(person);
                 _personRepository.Insert(person);
-                Console.WriteLine("### FINISHED Add(Person person) ###");
             }
             catch (Exception e)
             {
-                Console.WriteLine("!!! ERROR Add(Person person) !!!");
-                throw;
+                throw new PersonManagementException("Person konnte nicht hinzugefügt werden",
+                    "Person konnte logisch nicht hinzugefügt werden", e);
             }
         }
 

@@ -35,17 +35,25 @@ namespace Backend.Data.DatabaseStorage
 
         public void Insert(Person person)
         {
-            _validator.ValidateAndThrow(person);
+            try
+            {
+                _validator.ValidateAndThrow(person);
 
-            var allLines = _fileStorer.LoadAllLines(PATH);
+                var allLines = _fileStorer.LoadAllLines(PATH);
 
-            var allPersons = _personParser.ParseFromCSV(allLines);
-            var nextIndex = allPersons.Max(p => p.Id) + 1;
-            person.Id = nextIndex;
+                var allPersons = _personParser.ParseFromCSV(allLines);
+                var nextIndex = allPersons.Max(p => p.Id) + 1;
+                person.Id = nextIndex;
 
-            var csvData = _converter.ToCsv(person);
-            allLines.Add(csvData);
-            _fileStorer.WriteAllLines("data.csv", allLines);
+                var csvData = _converter.ToCsv(person);
+                allLines.Add(csvData);
+                _fileStorer.WriteAllLines("data.csv", allLines);
+            }
+            catch (Exception e)
+            {
+                throw new DatabaseStorageException("Fehler insert in Repo",
+                    "Personendatensatz konnte nicht in Datenbank eingefügt werden", e);
+            }
         }
 
         public ValidationResult ValidateForInsert(Person person)

@@ -5,7 +5,9 @@ using Backend.Data.FileStorage;
 using Backend.Logic.PersonManagement;
 using Castle.DynamicProxy;
 using ConsoleClient.CrossCutting;
+using CrossCutting.Proxies.Caching;
 using CrossCutting.Proxies.Logging;
+using CrossCutting.Proxies.Validation;
 using Microsoft.AspNetCore.OData;
 using ServiceClient.Extensions;
 using ServiceClient.Middlewares;
@@ -30,6 +32,8 @@ namespace ServiceClient
 
             builder.Services.AddSingleton<ProxyGenerator>();
             builder.Services.AddSingleton<IInterceptor, LoggingInterceptor>();
+            //builder.Services.AddSingleton<IInterceptor, ValidationInterceptor>();
+            //builder.Services.AddSingleton<IInterceptor, CachingInterceptor>();
 
             builder.Services.AddProxiedTransient<IPersonManager, PersonManager>();
             builder.Services.AddProxiedTransient<IPersonRepository, PersonRepository>();

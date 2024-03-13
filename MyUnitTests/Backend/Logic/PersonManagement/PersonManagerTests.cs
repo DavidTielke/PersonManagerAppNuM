@@ -14,14 +14,13 @@ using Moq;
 
 namespace MyUnitTests.Backend.Logic.PersonManagement
 {
-
     [TestFixture]
     public class PersonManagerTests
     {
         private PersonManager _sut;
         private Mock<IPersonRepository> _repoMock;
         private Mock<IConfigurator> _configMock;
-        private Mock<IPersonAddLogicValidator> _validatorMock;
+        private IPersonAddLogicValidator _validator;
 
         [SetUp]
         public void Setup()
@@ -29,8 +28,8 @@ namespace MyUnitTests.Backend.Logic.PersonManagement
             _repoMock = new Mock<IPersonRepository>();
             _configMock = new Mock<IConfigurator>();
             _configMock.Setup(m => m.Get<int>(It.IsAny<string>(), It.IsAny<int>())).Returns(18);
-            _validatorMock = new Mock<IPersonAddLogicValidator>();
-            _sut = new PersonManager(_repoMock.Object, _configMock.Object, _validatorMock.Object);
+            _validator = new PersonAddLogicValidator();
+            _sut = new PersonManager(_repoMock.Object, _configMock.Object, _validator);
         }
 
         [Test]
